@@ -7,7 +7,7 @@
                 
             </a>
         </x-slot>
-
+        <h1 class="text-center">Admin Registration</h1>
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 

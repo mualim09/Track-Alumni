@@ -13,7 +13,8 @@
                         <tr>
                             <th>Company Name</th>
                             <th>Designation</th>
-                            <th>Description</th>
+                            <th>Experience Required</th>
+                            <th>Salary</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -23,10 +24,22 @@
                            
                             <td>{{ $job->title }}</td>
                             <td>{{ $job->designation }}</td>
-                            <td>{{ $job->description }}</td>
+                            <td>{{ $job->experience_required }}</td>
+                            <td>{{ $job->salary }}</td>
                             <td>
-                            <a class="text-decoration-none text-white pe-auto" href="{{ url('/jobs/'.$job->id.'/edit') }}"><label class="badge badge-info">Edit</label></a>
-                                <a class="text-decoration-none text-white pe-auto" href="{{ url('/jobs/'.$job->id.'/delete') }}"><label class="badge badge-danger">Delete</label></a>
+                                @if(Auth::guard('staff')->user())
+                                    <a class="text-decoration-none text-white pe-auto" href="{{ url('staff/jobs/'.$job->id.'/edit') }}"><label class="badge badge-info">Edit</label></a>
+                                        <a class="text-decoration-none text-white pe-auto" href="{{ url('staff/jobs/'.$job->id.'/delete') }}"><label class="badge badge-danger">Delete</label>
+                                    </a>
+                                @elseif(Auth::guard('alumni')->user())
+                                    <a class="text-decoration-none text-white pe-auto" href="{{ url('alumni/jobs/'.$job->id.'/edit') }}"><label class="badge badge-info">Edit</label></a>
+                                        <a class="text-decoration-none text-white pe-auto" href="{{ url('alumni/jobs/'.$job->id.'/delete') }}"><label class="badge badge-danger">Delete</label>
+                                    </a>
+                                @else
+                                    <a class="text-decoration-none text-white pe-auto" href="{{ url('admin/jobs/'.$job->id.'/edit') }}"><label class="badge badge-info">Edit</label></a>
+                                        <a class="text-decoration-none text-white pe-auto" href="{{ url('admin/jobs/'.$job->id.'/delete') }}"><label class="badge badge-danger">Delete</label>
+                                    </a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

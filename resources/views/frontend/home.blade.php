@@ -6,7 +6,7 @@
 	<div class="container">
 		<article class="row mb-4">
 			<div class="col-lg-10 mx-auto mb-4">
-				<h3 class="h3 mb-3">University of Information Technology and Sciences</h3>
+				<h3 class="h3 mb-3">University of Information Technology and Sciences (UITS)</h3>
 				
 			</div>
 			<div class="col-12 mb-3">

@@ -12,7 +12,7 @@
                 <h4 class="card-title">Alumni Registration</h4>
                 <form id="alumni_create_form" class="form-sample" method="POST" action="{{ route('alumnies.store') }}" enctype="multipart/form-data">
                     @csrf
-                    <p class="card-description border-bottom p-3"> Personal info </p>
+                    <p class="card-description border-bottom p-3"> Personal Information </p>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
@@ -38,8 +38,8 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
-                        
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Date of Birth</label>
@@ -49,20 +49,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Address</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="address" class="form-control" />
-                                    <span class="text-danger small error-text address_error" ></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Phone</label>
+                                <label class="col-sm-4 col-form-label">Contact Number</label>
                                 <div class="col-sm-8">
                                     <input type="text" name="phone" class="form-control" />
                                     <span class="text-danger small error-text phone_error" ></span>
@@ -70,6 +59,64 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                    <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Maritial Status</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="maritial_status">
+                                        <option></option>
+                                        <option>Married</option>
+                                        <option>Single</option>
+                                        <option>Divorced</option>
+                                    </select>
+                                    <span class="text-danger small error-text maritial_status_error" ></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Blood Group</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="blood_group">
+                                        <option></option>
+                                        <option>A+</option>
+                                        <option>B+</option>
+                                        <option>AB+</option>
+                                        <option>O+</option>
+                                        <option>A-</option>
+                                        <option>B-</option>
+                                        <option>AB-</option>
+                                        <option>O-</option>
+                                    </select>
+                                    <span class="text-danger small error-text blood_group_error" ></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Present Address</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="present_address" class="form-control" />
+                                    <span class="text-danger small error-text present_address_error" ></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Permanent Address</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="permanent_address" class="form-control" />
+                                    <span class="text-danger small error-text permanent_address_error" ></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
@@ -90,23 +137,55 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input name="donate_blood" class="form-check-input" type="checkbox" value="1"  {{ old('donate_blood') ? 'checked="checked"' : '' }} id="donateBlood">
+                                <label class="form-check-label" for="donateBlood">
+                                    Donate Blood
+                                </label>
+                            </div>
+                            <span class="text-danger small error-text donate_blood_error" ></span>
+                        </div>
+                    </div>
                    
 
-                    <p class="card-description border-bottom p-3"> Education </p>
+                    <p class="card-description border-bottom p-3"> Academic Information </p>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Department</label>
                                 <div class="col-sm-8">
-                                    <select class="form-control" name="department">
-                                    <option>IT</option>
-                                    <option>EEE</option>
-                                    <option>Civil</option>
-                                    <option>CSE</option>
-                                    <option>BBA</option>
+                                    <select class="form-control" name="department_id">
+                                        <option selected></option>
+                                        @foreach($departments as $department)
+                                            <option value="{{ $department->id }}"> {{ $department->name }} </option>
+                                        @endforeach
                                     
                                     </select>
-                                    <span class="text-danger small error-text department_error" ></span>
+                                    <span class="text-danger small error-text department_id_error" ></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Student ID</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="student_id" class="form-control" />
+                                    <span class="text-danger small error-text student_id_error" ></span>
+                                </div>
+                            </div>
+                        </div>   
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Batch</label>
+                                <div class="col-sm-8">
+                                    <input type="number" name="batch" class="form-control" />
+                                    <span class="text-danger small error-text batch_error" ></span>
                                 </div>
                             </div>
                         </div>
@@ -120,8 +199,9 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
-                    <div class="col-md-6">
+                        <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Passing Year</label>
                                 <div class="col-sm-8">
@@ -132,14 +212,35 @@
                         </div>
                     </div>
 
-                    <p class="card-description border-bottom p-3"> Experience </p>
+                    <p class="card-description border-bottom p-3"> Professional Information </p>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Company Name</label>
+                                <label class="col-sm-4 col-form-label">Profession</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="company_name" class="form-control" />
-                                    <span class="text-danger small error-text company_name_error" ></span>
+                                    <input type="text" name="profession" class="form-control" />
+                                    <span class="text-danger small error-text profession_error" ></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Field</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="field" class="form-control" />
+                                    <span class="text-danger small error-text field_error" ></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Organization</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="organization" class="form-control" />
+                                    <span class="text-danger small error-text organization_error" ></span>
                                 </div>
                             </div>
                         </div>
@@ -149,6 +250,27 @@
                                 <div class="col-sm-8">
                                     <input type="text" name="designation" class="form-control" />
                                     <span class="text-danger small error-text designation_error" ></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Office Email</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="office_email" class="form-control" />
+                                    <span class="text-danger small error-text office_email_error" ></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Office Address</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="office_address" class="form-control" />
+                                    <span class="text-danger small error-text office_address_error" ></span>
                                 </div>
                             </div>
                         </div>

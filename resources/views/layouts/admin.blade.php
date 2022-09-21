@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Dashboard</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('admin/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -26,12 +26,210 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
+        @if(Auth::guard('staff')->user())
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <!-- Sidebar -->
+                <!-- Sidebar - Brand -->
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <div class="sidebar-brand-icon rotate-n-15">
+                        <i class="fas fa-laugh-wink"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">Staff Panel</div>
+                </a>
+                 <!-- Divider -->
+                 <hr class="sidebar-divider my-0">
+                 <!-- Nav Item - Home page -->
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url('/') }}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>View Site</span></a>
+                </li>
+
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ route('staff.dashboard') }}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span></a>
+                </li>
+               
+
+                <!-- Nav Item - Alumni -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('staff.alumnies.index') }}">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Alumni</span>
+                    </a>
+                </li>
+
+                <!-- Nav Item - Staff -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('staffs.index') }}">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Staff</span>
+                    </a>
+                </li>
+
+                <!-- Nav Item - Events -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Event</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded"> 
+                        <a class="collapse-item" href="{{ route('staff.events.index') }}">Event List</a>
+                        <a class="collapse-item" href="{{ route('staff.events.create') }}">Create Event</a>
+                    </div>
+                </div>
+            </li>
+
+             <!-- Nav Item - Training -->
+             <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#training"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Training</span>
+                </a>
+                <div id="training" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded"> 
+                        <a class="collapse-item" href="{{ route('staff.trainings.index') }}">Training List</a>
+                        <a class="collapse-item" href="{{ route('staff.trainings.create') }}">Schedule Training</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Funds -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#fund"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Funds</span>
+                </a>
+                <div id="fund" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded"> 
+                        <a class="collapse-item" href="{{ route('staff.funds.index') }}">View Collection</a>
+                        <a class="collapse-item" href="{{ route('staff.funds.create') }}">Update Investment</a>
+                        <a class="collapse-item" href="{{ route('staff.funds.index') }}">View Investment</a>
+                    </div>
+                </div>
+            </li>
+
+             <!-- Nav Item - Job -->
+             <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJob"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Job Portal</span>
+                    </a>
+                    <div id="collapseJob" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="{{ route('staff.jobs.index') }}">Job Post List</a>
+                            <a class="collapse-item" href="{{ route('staff.jobs.create') }}">Create Job Post</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Nav Item - Gallery -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#gallery"
+                    aria-expanded="true" aria-controls="gallery">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Gallery</span>
+                </a>
+                <div id="gallery" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded"> 
+                        <a class="collapse-item" href="{{ route('staff.galleries.index') }}">Gallery</a>
+                        <a class="collapse-item" href="{{ route('staff.galleries.create') }}">Create Gallery</a>
+                    </div>
+                </div>
+            </li>
+
+                
+            </ul>
+        @elseif(Auth::guard('alumni')->user())
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+                <!-- Sidebar - Brand -->
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('alumni.dashboard') }}">
+                    <div class="sidebar-brand-icon rotate-n-15">
+                        <i class="fas fa-laugh-wink"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">Alumni Panel</div>
+                </a>
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0">
+
+                <!-- Nav Item - Home page -->
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url('/') }}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>View Site</span></a>
+                </li>
+
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ route('alumni.dashboard') }}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span></a>
+                </li>
+
+                <!-- Nav Item - Alumni -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('alumnies.dept_alumnies') }}">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Alumni</span>
+                    </a>
+                </li>
+
+                <!-- Nav Item - Batchmates -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('alumnies.batch_alumnies') }}">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Batchmates</span>
+                    </a>
+                </li>
+
+                <!-- Nav Item - Events -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('alumni.events.index') }}">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Events</span>
+                    </a>
+                </li>
+
+                <!-- Nav Item - Job -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJob"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Job Portal</span>
+                    </a>
+                    <div id="collapseJob" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="{{ route('alumni.jobs.index') }}">Job Post List</a>
+                            <a class="collapse-item" href="{{ route('alumni.jobs.create') }}">Create Job Post</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Nav Item - Batchmates -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('alumnies.donate_blood') }}">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Blood Donator</span>
+                    </a>
+                </li>
+
+                
+            </ul>
+
+        @else
+            <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.dashboard') }}">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -41,21 +239,69 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
+            <!-- Nav Item - Home page -->
+            <li class="nav-item active">
+                    <a class="nav-link" href="{{ url('/') }}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>View Site</span></a>
+                </li>
+
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{ route('admin.dashboard') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
 
-            <!-- Nav Item - Charts -->
+            <!-- Nav Item - Pending -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('alumnies.index') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Alumni</span></a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pending"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Pending Users</span>
+                </a>
+                <div id="pending" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded"> 
+                        <a class="collapse-item" href="{{ route('admin.alumnies.pending_alumnies') }}">Pending Alumnies</a>
+                        <a class="collapse-item" href="{{ route('admin.staffs.pending_staffs') }}">Pending Staffs</a>
+                    </div>
+                </div>
             </li>
 
-            <!-- Nav Item - Charts -->
+           
+            <!-- Nav Item - Departments -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#department"
+                    aria-expanded="true" aria-controls="department">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Department</span>
+                </a>
+                <div id="department" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded"> 
+                        <a class="collapse-item" href="{{ route('admin.departments.index') }}">Department List</a>
+                        <a class="collapse-item" href="{{ route('admin.departments.create') }}">Create Department</a>
+                    </div>
+                </div>
+            </li>
+
+
+            <!-- Nav Item - Staff -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('staffs.index') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Staff</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Alumni -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.alumnies.index') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Alumni</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Events -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -64,29 +310,79 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded"> 
-                        <a class="collapse-item" href="{{ route('events.index') }}">Event List</a>
-                        <a class="collapse-item" href="{{ route('events.create') }}">Create Event</a>
+                        <a class="collapse-item" href="{{ route('admin.events.index') }}">Event List</a>
+                        <a class="collapse-item" href="{{ route('admin.events.create') }}">Create Event</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Charts -->
+            <!-- Nav Item - Training -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#training"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Training</span>
+                </a>
+                <div id="training" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded"> 
+                        <a class="collapse-item" href="{{ route('admin.trainings.index') }}">Training List</a>
+                        <a class="collapse-item" href="{{ route('admin.trainings.create') }}">Schedule Training</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Funds -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#fund"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Funds</span>
+                </a>
+                <div id="fund" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded"> 
+                        <a class="collapse-item" href="{{ route('admin.funds.index') }}">View Collection</a>
+                        <a class="collapse-item" href="{{ route('admin.funds.create') }}">Update Investment</a>
+                        <a class="collapse-item" href="{{ route('admin.funds.index') }}">View Investment</a>
+                    </div>
+                </div>
+            </li>
+
+
+            <!-- Nav Item - Job -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJob"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Job Post</span>
+                    <span>Job Portal</span>
                 </a>
                 <div id="collapseJob" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('jobs.index') }}">Job Post List</a>
-                        <a class="collapse-item" href="{{ route('jobs.create') }}">Create Job Post</a>
+                        <a class="collapse-item" href="{{ route('admin.jobs.index') }}">Job Post List</a>
+                        <a class="collapse-item" href="{{ route('admin.jobs.create') }}">Create Job Post</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Gallery -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#gallery"
+                    aria-expanded="true" aria-controls="gallery">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Gallery</span>
+                </a>
+                <div id="gallery" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded"> 
+                        <a class="collapse-item" href="{{ route('admin.galleries.index') }}">Gallery</a>
+                        <a class="collapse-item" href="{{ route('admin.galleries.create') }}">Create Gallery</a>
                     </div>
                 </div>
             </li>
 
         </ul>
+
+
         <!-- End of Sidebar -->
+        @endif
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -271,7 +567,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('alumni.profile') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -284,13 +580,32 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <a class="dropdown-item" onclick="event.preventDefault();
-                                                                    this.closest('form').submit();">
-                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Signout
-                                    </a>
-                                </form>
+                                @if(Auth::guard('staff')->user())
+                                    <form method="POST" action="{{ route('staff.logout') }}">
+                                        @csrf
+                                        <a class="dropdown-item" onclick="event.preventDefault();
+                                                                        this.closest('form').submit();">
+                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Signout
+                                        </a>
+                                    </form>
+                                @elseif(Auth::guard('alumni')->user())
+                                    <form method="POST" action="{{ route('alumni.logout') }}">
+                                        @csrf
+                                        <a class="dropdown-item" onclick="event.preventDefault();
+                                                                        this.closest('form').submit();">
+                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Signout
+                                        </a>
+                                    </form>
+                                @else   
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <a class="dropdown-item" onclick="event.preventDefault();
+                                                                        this.closest('form').submit();">
+                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Signout
+                                        </a>
+                                    </form>
+                                @endif
+
                             </div>
                         </li>
 

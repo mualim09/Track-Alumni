@@ -41,11 +41,9 @@
 
       <nav class="navbar navbar-expand-lg navbar-white text-white">
          <a class="navbar-brand" href="{{ route('front.home') }}">
-            <img class="img-fluid" width="150px" src="{{ asset('assets/images/logo.png')}}" alt="LogBook">
+            <img class="img-fluid" width="100px" src="{{ asset('assets/images/logo.png')}}" alt="LogBook">
          </a>
-         <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
-            <i class="ti-menu"></i>
-         </button>
+         
 
          <div class="collapse navbar-collapse text-center" id="navigation">
             <ul class="navbar-nav ml-auto">
@@ -58,11 +56,14 @@
                 <li class="nav-item">
                    <a class="nav-link text-white" href="{{ route('front.events') }}">Events</a>
                 </li>
+                <li class="nav-item">
+                   <a class="nav-link text-white" href="{{ route('front.galleries') }}">Gallery</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link text-white" href="{{ route('front.trainings') }}">Training</a>
+                </li>
                <li class="nav-item">
                   <a class="nav-link text-white" href="{{ route('front.alumnies.index') }}">Alumnies</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link text-white" href="{{ route('alumnies.create') }}">Alumni Register</a>
                </li>
                <li class="nav-item">
                   <a class="nav-link text-white" href="{{ route('front.jobs') }}">Job Opportunities</a>
@@ -70,12 +71,43 @@
                <li class="nav-item">
                   <a class="nav-link text-white" href="{{ route('front.contact') }}">Contact</a>
                </li>
+
+               @if(Auth::guard('staff')->user())
                <li class="nav-item">
-                  <a class="nav-link text-white" href="{{ route('login') }}">Log in</a>
+                  <a class="nav-link text-white" href="{{ route('staff.dashboard') }}">{{ Auth::guard('staff')->user()->name }}</a>
                </li>
+               @elseif(Auth::guard('alumni')->user())
                <li class="nav-item">
-                  <a class="nav-link text-white" href="{{ route('register') }}">Register</a>
+                  <a class="nav-link text-white" href="{{ route('alumni.dashboard') }}">{{ Auth::guard('alumni')->user()->name }}</a>
                </li>
+
+               @elseif(Auth::user())
+               <li class="nav-item">
+                  <a class="nav-link text-white" href="{{ route('admin.dashboard') }}">{{ Auth::user()->name }}</a>
+               </li>
+
+               @else
+               <li class="nav-item dropdown">
+                  <a class="nav-link text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                     aria-expanded="false">Login <i class="ti-angle-down ml-1"></i>
+                  </a>
+                  <div class="dropdown-menu">
+                     <a class="dropdown-item" href="{{ route('login') }}">Admin Login</a>
+                     <a class="dropdown-item" href="{{ route('staff.login') }}">Staff Login</a>
+                     <a class="dropdown-item" href="{{ route('alumni.login') }}">Alumni Login</a>
+                  </div>
+               </li>
+               <li class="nav-item dropdown">
+                  <a class="nav-link text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                     aria-expanded="false">Register <i class="ti-angle-down ml-1"></i>
+                  </a>
+                  <div class="dropdown-menu">
+                     <a class="dropdown-item" href="{{ route('staffs.create') }}">Staff Registration</a>
+                     <a class="dropdown-item" href="{{ route('alumnies.create') }}">Alumni Registration</a>
+                  </div>
+               </li>
+               @endif
+               
             </ul>
 
          </div>

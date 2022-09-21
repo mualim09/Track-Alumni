@@ -10,7 +10,13 @@
                     <strong style="text-align:center">Event Created Successfully!</strong>
                 </div>
                 <h4 class="card-title">Create Event</h4>
-                <form id="event_create_form" class="form-sample" method="POST" action="{{ route('events.store') }}" enctype="multipart/form-data">
+                @if(Auth::guard('staff')->user())
+                    <form id="event_create_form" class="form-sample" method="POST" action="{{ route('staff.events.store') }}" enctype="multipart/form-data">
+                @elseif(Auth::guard('alumni')->user())
+                    <form id="event_create_form" class="form-sample" method="POST" action="{{ route('alumni.events.store') }}" enctype="multipart/form-data">
+                @else
+                    <form id="event_create_form" class="form-sample" method="POST" action="{{ route('admin.events.store') }}" enctype="multipart/form-data">
+                @endif
                     @csrf
                     <p class="card-description border-bottom p-3"> </p>
                     <div class="row">
@@ -20,6 +26,36 @@
                                 <div class="col-sm-8">
                                     <input type="text" name="name" class="form-control" />
                                     <span class="text-danger small error-text name_error" ></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Location</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="location" class="form-control" />
+                                    <span class="text-danger small error-text location_error" ></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Event Date</label>
+                                <div class="col-sm-8">
+                                    <input type="date" name="start_date" class="form-control" />
+                                    <span class="text-danger small error-text start_date_error" ></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Event Time</label>
+                                <div class="col-sm-8">
+                                    <input type="time" name="start_time" class="form-control" />
+                                    <span class="text-danger small error-text start_time_error" ></span>
                                 </div>
                             </div>
                         </div>
@@ -34,6 +70,17 @@
                                     <span class="text-danger small error-text description_error" ></span>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="status">Status</label>
+                            <select name="status" class="form-select" aria-label="Default select example">
+                                <option selected></option>
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                            <span class="text-danger small error-text status_error" ></span>
                         </div>
                     </div>
                     

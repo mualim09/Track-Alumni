@@ -11,8 +11,8 @@
 					</div>
 					<h3 class="h5"><a class="post-title" href="{{ route('front.events.show', $event->id ) }}">{{ $event->name }}</a></h3>
 					<ul class="list-inline post-meta mb-2">
-                    <li class="list-inline-item"><i class="ti-user mr-2"></i><a href="author.html">{{ $event->user->name }}</a>
-                    </li>
+                   
+                    </li> 
                     <li class="list-inline-item">Date : {{ $event->created_at }}</li>
 					</ul>
 					<p>{{Str::limit($event->description, 50)}}</p>	<a href="{{ route('front.events.show', $event->id ) }}" class="btn btn-outline-primary">Continue Reading</a>

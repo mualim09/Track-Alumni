@@ -15,14 +15,16 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('name');
             $table->longText('description');
+            $table->date('start_date');
+            $table->time('start_time');
+            $table->string('location');
             $table->string('image');
+            $table->string('status');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')
-            ->onDelete('cascade');
+            
         });
     }
 

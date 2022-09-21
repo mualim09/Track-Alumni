@@ -25,6 +25,10 @@ class JobPostController extends Controller
     public function store(Request $request){
         $validator = Validator::make($request->all(),[
             'title' => 'required | max:50| min:1',
+            'designation' => 'required',
+            'experience_required' => 'required',
+            'salary' => 'required',
+            'status' => 'required',
             'description' => 'nullable | max:1000| min:1'
             
         ]);
@@ -37,9 +41,11 @@ class JobPostController extends Controller
 
             // job data inserting
             $job->title = $request->input('title');
-            $job->description = $request->input('description');
             $job->designation = $request->input('designation');
-            $job->user_id = Auth::user()->id;
+            $job->experience_required = $request->input('experience_required');
+            $job->salary = $request->input('salary');
+            $job->status = $request->input('status');
+            $job->description = $request->input('description');
 
             $job->save();
 
@@ -69,8 +75,11 @@ class JobPostController extends Controller
         
         $validator = Validator::make($request->all(),[
             'title' => 'required | max:50| min:1',
-            'description' => 'nullable | max: 1000',
-            'image' => 'nullable | mimes:jpg,jpeg,png,gif | max:5120',
+            'designation' => 'required',
+            'experience_required' => 'required',
+            'salary' => 'required',
+            'status' => 'required',
+            'description' => 'nullable | max:1000| min:1'
         ]);
 
         if(!$validator->passes()){
@@ -82,9 +91,12 @@ class JobPostController extends Controller
 
             // job data inserting
             $job->title = $request->input('title');
-            $job->description = $request->input('description');
             $job->designation = $request->input('designation');
-
+            $job->experience_required = $request->input('experience_required');
+            $job->salary = $request->input('salary');
+            $job->status = $request->input('status');
+            $job->description = $request->input('description');
+            
             $job->update();
             return response()->json(['status'=>1, 'msg'=>'done']);
             //return redirect('/jobs');
@@ -99,6 +111,18 @@ class JobPostController extends Controller
             File::delete($directory);
         }
         $job->delete();
-        return redirect('jobs');
+        
+        
+        if(Auth::guard('staff')->user()){
+            return redirect('staff/jobs');
+        }
+
+        if(Auth::guard('alumni')->user()){
+            return redirect('alumnies/jobs');
+        }
+
+        if(Auth::user()){
+            return redirect('admin/jobs');
+        }
     }
 }

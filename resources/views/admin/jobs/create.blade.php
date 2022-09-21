@@ -10,7 +10,13 @@
                     <strong style="text-align:center">Job Post Created Successfully!</strong>
                 </div>
                 <h4 class="card-title">Create Job Post</h4>
-                <form id="job_create_form" class="form-sample" method="POST" action="{{ route('jobs.store') }}" enctype="multipart/form-data">
+                @if(Auth::guard('staff')->user())
+                    <form id="job_create_form" class="form-sample" method="POST" action="{{ route('staff.jobs.store') }}" enctype="multipart/form-data">
+                @elseif(Auth::guard('alumni')->user())
+                    <form id="job_create_form" class="form-sample" method="POST" action="{{ route('alumni.jobs.store') }}" enctype="multipart/form-data">
+                @else
+                    <form id="job_create_form" class="form-sample" method="POST" action="{{ route('admin.jobs.store') }}" enctype="multipart/form-data">
+                @endif
                     @csrf
                     <p class="card-description border-bottom p-3"> </p>
                     <div class="row">
@@ -37,12 +43,45 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Experience Required</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="experience_required" class="form-control" />
+                                    <span class="text-danger small error-text experience_required_error" ></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Salary</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="salary" class="form-control" />
+                                    <span class="text-danger small error-text salary_error" ></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Description</label>
                                 <div class="col-sm-8">
                                     <textarea class="form-control" name="description" id="" cols="30" rows="10"></textarea>
                                     <span class="text-danger small error-text description_error" ></span>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="status">Status</label>
+                            <select name="status" class="form-select" aria-label="Default select example">
+                                <option selected></option>
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                            <span class="text-danger small error-text status_error" ></span>
                         </div>
                     </div>
                 

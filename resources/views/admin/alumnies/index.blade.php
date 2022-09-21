@@ -13,6 +13,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Department</th>
+                            <th>Batch</th>
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Gender</th>
@@ -24,12 +25,19 @@
                         @foreach($alumnies as $alumni)
                         <tr>
                             <td>{{ $alumni->name }}</td>
-                            <td>{{ $alumni->department }}</td>
+                            <td>{{ $alumni->department->name }}</td>
+                            <td>{{ $alumni->batch }}</td>
                             <td>{{ $alumni->email }}</td>
                             <td>{{ $alumni->phone }}</td>
                             <td>{{ $alumni->gender }}</td>
                             <td>{{ $alumni->passing_year }}</td>
-                            <td><a class="text-white" href="{{ route('front.alumnies.show', $alumni->id ) }}"><button type="button" class="btn btn-info"> View </button></a></td>
+                            @if(Auth::guard('alumni')->user())
+                            <td><a class="text-white" href="{{ route('alumnies.show', $alumni->id ) }}"><button type="button" class="btn btn-info"> View </button></a></td>
+                            @elseif(Auth::guard('staff')->user())
+                            <td><a class="text-white" href="{{ route('staff.alumnies.show', $alumni->id ) }}"><button type="button" class="btn btn-info"> View </button></a></td>
+                            @else
+                            <td><a class="text-white" href="{{ route('admin.alumnies.show', $alumni->id ) }}"><button type="button" class="btn btn-info"> View </button></a></td>
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>

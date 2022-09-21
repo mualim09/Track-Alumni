@@ -13,8 +13,15 @@
                         <tr>
                             <th>Image</th>
                             <th>Name</th>
-                            <th>Description</th>
+                            <th>Location</th>
+                            <th>Event Date</th>
+                            <th>Event Time</th>
+                            <th>Status</th>
+                            @if(Auth::guard('alumni')->user())
+
+                            @else
                             <th>Action</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -22,11 +29,25 @@
                         <tr>
                             <td><img style="height:50px;" src="{{ asset('storage/uploads/images/events/' . $event->image) }}" alt=""></td>
                             <td>{{ $event->name }}</td>
-                            <td>{{ $event->description }}</td>
+                            <td>{{ $event->location }}</td>
+                            <td>{{ $event->start_date }}</td>
+                            <td>{{ $event->start_time }}</td>
+                            <td>{{ $event->status }}</td>
+                            @if(Auth::guard('staff')->user())
                             <td>
-                            <a class="text-decoration-none text-white pe-auto" href="{{ url('/events/'.$event->id.'/edit') }}"><label class="badge badge-info">Edit</label></a>
-                                <a class="text-decoration-none text-white pe-auto" href="{{ url('/events/'.$event->id.'/delete') }}"><label class="badge badge-danger">Delete</label></a>
+                                    <a class="text-decoration-none text-white pe-auto" href="{{ url('staff/events/'.$event->id.'/edit') }}"><label class="badge badge-info">Edit</label></a>
+                                        <a class="text-decoration-none text-white pe-auto" href="{{ url('staff/events/'.$event->id.'/delete') }}"><label class="badge badge-danger">Delete</label>
+                                    </a>
                             </td>
+                                @elseif(Auth::guard('alumni')->user())
+                                    
+                                @else
+                                <td>
+                                    <a class="text-decoration-none text-white pe-auto" href="{{ url('admin/events/'.$event->id.'/edit') }}"><label class="badge badge-info">Edit</label></a>
+                                        <a class="text-decoration-none text-white pe-auto" href="{{ url('admin/events/'.$event->id.'/delete') }}"><label class="badge badge-danger">Delete</label>
+                                    </a>
+                                </td>
+                                @endif
                         </tr>
                         @endforeach
                     </tbody>

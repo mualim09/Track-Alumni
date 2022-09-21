@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('jobposts', function (Blueprint $table) {
+        Schema::create('funds', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('title');
-            $table->string('designation');
-            $table->longText('description');
+            
+            $table->float('amount');
+            $table->string('remarks');
+            $table->string('pay_type');
+            $table->string('bank_name');
+            $table->string('card_no');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')
-            ->onDelete('cascade');
+            
         });
     }
 
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jobposts');
+        Schema::dropIfExists('funds');
     }
 };

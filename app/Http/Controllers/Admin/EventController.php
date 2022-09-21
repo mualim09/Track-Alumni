@@ -27,6 +27,10 @@ class EventController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => 'required | max:50| min:1',
             'description' => 'nullable | max:1000| min:1',
+            'start_date' => 'required',
+            'start_time' => 'required',
+            'location' => 'required',
+            'status' => 'required',
             'image' => 'nullable | mimes:jpg,jpeg,png,gif | max:5120',
             
         ]);
@@ -49,7 +53,12 @@ class EventController extends Controller
             // event data inserting
             $event->name = $request->input('name');
             $event->description = $request->input('description');
-            $event->user_id = Auth::user()->id;
+            $event->start_date = $request->input('start_date');
+            $event->start_time = $request->input('start_time');
+            $event->status = $request->input('status');
+            $event->location = $request->input('location');
+            $event->description = $request->input('description');
+
 
             $event->save();
 
@@ -78,8 +87,11 @@ class EventController extends Controller
         
         $validator = Validator::make($request->all(),[
             'name' => 'required | max:50| min:1',
-            'description' => 'nullable | max: 1000',
-            'image' => 'nullable | mimes:jpg,jpeg,png,gif | max:5120',
+            'description' => 'nullable | max:1000| min:1',
+            'start_date' => 'required',
+            'start_time' => 'required',
+            'location' => 'required',
+            'status' => 'required',
         ]);
 
         if(!$validator->passes()){
@@ -102,8 +114,14 @@ class EventController extends Controller
                 $event->image = $file_name_store;
             }
 
+            
             // event data inserting
             $event->name = $request->input('name');
+            $event->description = $request->input('description');
+            $event->start_date = $request->input('start_date');
+            $event->start_time = $request->input('start_time');
+            $event->status = $request->input('status');
+            $event->location = $request->input('location');
             $event->description = $request->input('description');
 
             $event->update();
@@ -114,12 +132,26 @@ class EventController extends Controller
 
     public function destroy($id){
         $event = Event::find($id);
-        $directory = 'assets/uploads/images/events/'.$event->image;
+        $directory = 'public/uploads/images/events/'.$event->image;
 
         if(File::exists($directory)){
             File::delete($directory);
         }
         $event->delete();
-        return redirect('events');
+
+        if(Auth::guard('staff')->user()){
+            return redirect('staff/events');
+        }
+
+        if(Auth::guard('alumni')->user()){
+            return redirect('alumni/events');
+        }
+
+        if(Auth::user()){
+            return redirect('admin/events');
+        }
+
+        
     }
+    
 }
